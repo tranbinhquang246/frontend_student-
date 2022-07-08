@@ -10,14 +10,23 @@ function ModalEdit({
   setData,
 }) {
   const [form] = Form.useForm();
-  console.log(dataStudent.firstName);
-  form.setFieldsValue({
-    firstName: dataStudent.firstName,
-    lastName: dataStudent.lastName,
-    age: dataStudent.age,
-    classroom: dataStudent.classroom,
-    avatar: dataStudent.avatar,
-  });
+  if (dataStudent === undefined) {
+    form.setFieldsValue({
+      firstName: "",
+      lastName: "",
+      age: "",
+      classroom: "",
+      avatar: "",
+    });
+  } else {
+    form.setFieldsValue({
+      firstName: dataStudent.firstName,
+      lastName: dataStudent.lastName,
+      age: dataStudent.age,
+      classroom: dataStudent.classroom,
+      avatar: dataStudent.avatar,
+    });
+  }
   const getStudent = async () => {
     const response = await axios.get(`${process.env.REACT_APP_URL}students`);
     setData(response.data);
